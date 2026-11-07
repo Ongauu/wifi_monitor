@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: wifi-monitor
+  datasource:
+    url: jdbc:postgresql://localhost:5432/wifi_monitor
+    username: ${DB_USERNAME:}
+    password: ${DB_PASSWORD:}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.crimson.wifimonitor: INFO
+
+wifi:
+  monitor:
+    enabled: true
+    interval-ms: 5000
+    command-timeout-ms: 4000
+    ping-count: 2
+    ping-timeout-ms: 1000
+    internet-hosts:
+      - 8.8.8.8
+      - 1.1.1.1
+    dns-hosts:
+      - www.google.com
+      - www.cloudflare.com
+    signal-low-threshold-percent: 40
+    signal-recover-threshold-percent: 50
+    collect-wlan-events-on-disconnect: true
+    collect-wlan-report-on-disconnect: false
+    wlan-report-min-interval-minutes: 30
+    max-command-output-chars: 20000
+    analysis-lookback-hours: 72
